@@ -13,9 +13,10 @@ describe('App', () => {
     await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
 
-    expect(compiled.querySelector('mat-toolbar')?.textContent).toContain('Application Foundation');
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Angular Spring PostgreSQL Foundation'
+    expect(compiled.querySelector('mat-toolbar')?.textContent).toContain('Agenda KJG');
+    expect(compiled.querySelector('.eyebrow')?.textContent).toContain(
+      'KJG Repostería y Manualidades'
     );
+    expect(compiled.querySelector('h1')?.textContent).toContain('Agenda KJG');
   });
 });
