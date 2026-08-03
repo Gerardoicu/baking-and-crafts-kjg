@@ -1,5 +1,17 @@
 @use '@angular/material' as mat;
 
+:root {
+  --kjg-brand-primary-berry: #ad254b;
+  --kjg-brand-strong-berry: #9a1d2d;
+  --kjg-brand-accent-pink: #e36f91;
+  --kjg-brand-blush-container: #f9cac8;
+  --kjg-brand-cream-surface: #fdf7f3;
+  --kjg-brand-chocolate: #642814;
+  --kjg-brand-decorative-gold: #c29a2f;
+
+  --kjg-shell-accent: var(--kjg-brand-decorative-gold);
+}
+
 html {
   height: 100%;
   @include mat.theme(
@@ -12,6 +24,20 @@ html {
       density: 0,
     )
   );
+
+  --mat-sys-primary: var(--kjg-brand-strong-berry);
+  --mat-sys-on-primary: white;
+  --mat-sys-primary-container: var(--kjg-brand-blush-container);
+  --mat-sys-on-primary-container: var(--kjg-brand-chocolate);
+  --mat-sys-tertiary: var(--kjg-brand-chocolate);
+  --mat-sys-on-tertiary: white;
+  --mat-sys-tertiary-container: var(--kjg-brand-blush-container);
+  --mat-sys-on-tertiary-container: var(--kjg-brand-chocolate);
+  --mat-sys-surface: var(--kjg-brand-cream-surface);
+  --mat-sys-surface-container-low: white;
+  --mat-sys-on-surface: var(--kjg-brand-chocolate);
+  --mat-sys-on-surface-variant: #4f342b;
+  --mat-sys-outline-variant: #e4c7bd;
 }
 
 body {

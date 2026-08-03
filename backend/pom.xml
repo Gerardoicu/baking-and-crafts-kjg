@@ -8,11 +8,11 @@
 		<version>4.1.0</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>backend</artifactId>
+	<groupId>io.github.gerardoicu</groupId>
+	<artifactId>baking-and-crafts-kjg-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>backend</name>
-	<description>Reusable Angular, Spring, and PostgreSQL foundation backend</description>
+	<name>baking-and-crafts-kjg-backend</name>
+	<description>Agenda KJG backend</description>
 	<properties>
 		<java.version>25</java.version>
 	</properties>

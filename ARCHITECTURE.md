@@ -1,24 +1,30 @@
 # Architecture
 
-This repository is a reusable Angular, Spring, and PostgreSQL foundation. This
-document is the authority for backend, frontend, API, persistence, database,
-testing, and clean-code decisions. `AGENTS.md` remains the operational policy
-for agents and points here for cross-cutting design rules.
+This repository is the initialized Agenda KJG Angular, Spring, and PostgreSQL
+product foundation for `KJG Repostería y Manualidades`. This document is the
+authority for backend, frontend, API, persistence, database, testing, and
+clean-code decisions. `AGENTS.md` remains the operational policy for agents and
+points here for cross-cutting design rules.
 
 ## Purpose And Boundaries
 
-The foundation has three local boundaries:
+Agenda KJG has three local boundaries:
 
 - `frontend/`: standalone Angular application with Angular Material, routing,
+  `es-MX` locale defaults, `MXN` currency defaults, a minimal Spanish shell,
   and typed authentication infrastructure.
 - `backend/`: Spring Boot application exposing HTTP APIs, enforcing
   authentication and roles, and owning database migrations.
 - `compose.yaml`: local PostgreSQL dependency for development and integration
   checks.
 
-The foundation currently has no business domain. It exposes public health,
+Agenda KJG currently has no business domain. It exposes public health,
 authentication endpoints, current-user identity, and an admin check for
 authorization verification.
+
+The documented business timezone is `America/Mexico_City` for future domain
+behavior. Do not change JVM, PostgreSQL, browser, or system timezone defaults
+for that reason. System-boundary moments use UTC instants.
 
 Do not add business modules, entities, tables, roles, production infrastructure,
 or speculative architecture outside an approved ticket.
@@ -50,6 +56,10 @@ for usability, but it must not be treated as an authorization control.
 Access tokens are short-lived and kept in memory by the frontend. Refresh tokens
 are HttpOnly cookies. Cookie-backed authentication POSTs require CSRF
 protection. Refresh session token material is stored server-side only as a hash.
+
+JWT issuer is `baking-and-crafts-kjg-backend`. JWT audience is
+`baking-and-crafts-kjg-api`. These values identify the token-producing backend
+and protected API; they do not change the authentication flow.
 
 Public access must remain deliberate. `GET /api/v1/health` is public and simple.
 Authentication endpoints may be public only where the authentication flow
@@ -174,9 +184,9 @@ Use PostgreSQL-native types deliberately:
 - Date-only values use `date` and Java `LocalDate`.
 - Closed enums are persisted by name.
 
-Local PostgreSQL is defined in root `compose.yaml` with service name `db`,
-image `postgres:18.4-alpine`, port `5432`, environment-overridable values, and
-storage mounted at `/var/lib/postgresql`.
+Local PostgreSQL is defined in root `compose.yaml` with service name `db`, image
+`postgres:18.4-alpine`, port `5432`, environment-overridable values, database
+`baking_and_crafts_kjg`, and storage mounted at `/var/lib/postgresql`.
 
 ## Frontend Architecture
 
@@ -184,9 +194,15 @@ Angular code is organized by feature. Application-wide infrastructure belongs in
 `core`. `shared` stays small and genuinely reusable.
 
 The Angular application remains standalone with routing enabled, SCSS styles,
-Angular Material, TypeScript strictness, and typed reactive forms. Prefer
+Angular Material, TypeScript strictness, typed reactive forms, `LOCALE_ID`
+provided as `es-MX`, and `DEFAULT_CURRENCY_CODE` provided as `MXN`. Prefer
 `inject()`, functional interceptors and guards, signals for local and derived
 synchronous state, and RxJS for asynchronous composition.
+
+Brand colors are centralized in the global Angular Material theme boundary. The
+brand-reference image is theme inspiration only; it is not a production logo and
+must not be committed, cropped, regenerated, traced, or modified. Accessibility
+and readable contrast take precedence over exact color reproduction.
 
 Do not use `any`, double assertions, type-suppression comments as workarounds,
 unsafe assertion chains, nested subscriptions, duplicated HTTP requests, global
